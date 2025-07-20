@@ -18,12 +18,15 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+    implementation 'org.springframework.boot:spring-boot-starter-web'       // 웹 어노테이션 포함
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'   // JPA, Entity 포함
+    implementation 'org.springframework.boot:spring-boot-starter-security'   // BCrypt 등 보안
+    runtimeOnly 'com.mysql:mysql-connector-j'                               // MySQL 드라이버
+    compileOnly 'org.projectlombok:lombok'                                  // Lombok 컴파일 시 필요
+    annotationProcessor 'org.projectlombok:lombok'                          // Lombok 어노테이션 프로세서
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
