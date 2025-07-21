@@ -41,6 +41,8 @@ public class UserController {
             User user = userService.login(dto.getEmail(), dto.getPassword());
             HttpSession session = request.getSession();
             session.setAttribute("userId", user.getId());
+            session.setAttribute("email", user.getEmail());
+            session.setAttribute("nickname", user.getNickname()); // 아래 상태 확인창에 nickname을 띄워주기 위해서
             return ResponseEntity.ok("로그인 성공");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(401).body(e.getMessage()); // 인증 실패 시 401 반환
@@ -67,8 +69,8 @@ public class UserController {
             if (session == null || session.getAttribute("userId") == null) {
                 return ResponseEntity.status(401).body("로그인되지 않음");
             }
-            Long userId = (Long) session.getAttribute("userId");
-            return ResponseEntity.ok("로그인 중: userId=" + userId);
+            String nickname = (String) session.getAttribute("nickname");
+            return ResponseEntity.ok("로그인 중: nickname=" + nickname);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("서버 오류가 발생했습니다.");
         }

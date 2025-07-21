@@ -1,8 +1,8 @@
 package com.example.user.dto;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class LoginRequestDto {
     private String email;
     private String password;

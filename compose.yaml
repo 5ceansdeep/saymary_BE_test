@@ -1,27 +1,28 @@
+# 각 기능별 구현을 따로 해서 유지보수 편하게 하기 위해 로그인 기능만 따로 서버 연결
 services:
   app:
     build: .
-    container_name: stt-backend
+    container_name: login-backend
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sttdb
+      SPRING_DATASOURCE_URL: jdbc:mysql://login-db:3306/login_db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
-      - db
+      - login-db
 
-  db:
+  login-db:
     image: mysql:8.0
-    container_name: stt-db
+    container_name: login-db
     ports:
-      - "3306:3306"
+      - "3307:3306" # stt가 3306 사용해서 외부(로컬)만 3307로 바꿈.
     environment:
-      MYSQL_DATABASE: sttdb
+      MYSQL_DATABASE: login_db
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - db-data:/var/lib/mysql
+      - login_db-data:/var/lib/mysql
 
 volumes:
-  db-data:
+  login_db-data:
