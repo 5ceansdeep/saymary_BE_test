@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-web'       // 웹 어노테이션 포함
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'   // JPA, Entity 포함
     implementation 'org.springframework.boot:spring-boot-starter-security'   // BCrypt 등 보안
