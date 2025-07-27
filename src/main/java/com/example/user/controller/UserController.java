@@ -43,6 +43,13 @@ public class UserController {
             session.setAttribute("userId", user.getId());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("nickname", user.getNickname()); // 아래 상태 확인창에 nickname을 띄워주기 위해서
+
+            // "정보 기억하기" 기능 구현
+            if (dto.isRememberMe()) { // 체크박스 값이 true면(사용자가 버튼을 눌렀을때)
+                session.setMaxInactiveInterval(60 * 60 * 24 * 24); // 2주 (초 단위)
+            } else {
+                session.setMaxInactiveInterval(60 * 60); // 1시간 (초 단위)
+            }
             return ResponseEntity.ok("로그인 성공");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(401).body(e.getMessage()); // 인증 실패 시 401 반환

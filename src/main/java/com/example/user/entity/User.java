@@ -3,10 +3,12 @@ package com.example.user.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "users") // erd에서 고객부분
@@ -25,6 +27,11 @@ public class User {
 
     @Column(nullable = false)
     private String nickname;
+
+    @Column(unique = true)
+    private String resetToken; // 비밀번호 재설정 토큰
+
+    private LocalDateTime resetTokenExpiresAt; // 토큰 만료시간
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
